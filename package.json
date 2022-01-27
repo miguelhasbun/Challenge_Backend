@@ -1,0 +1,24 @@
+{
+  "name": "challenge_backend",
+  "version": "1.0.0",
+  "description": "Este repositorio contiene la lógica del backend de la aplicación.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miguelhasbun/Challenge_Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miguelhasbun/Challenge_Backend/issues"
+  },
+  "homepage": "https://github.com/miguelhasbun/Challenge_Backend#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mysql": "^2.18.1"
+  }
+}
