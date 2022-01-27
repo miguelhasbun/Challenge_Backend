@@ -1,19 +1,22 @@
-CREATE DATABASE IF NOT exists challenge;
+CREATE DATABASE IF NOT exists challengeTest;
 
-USE challenge;
+USE challengeTest;
 
 CREATE TABLE tareas (
 	id INT (11) NOT NULL AUTO_INCREMENT,
     descripcion VARCHAR(45) DEFAULT NULL,
+    finalizado bool,
     PRIMARY KEY (id)
 );
 
+
+DESCRIBE tareas;
+
 INSERT INTO tareas VALUES
-	(1, 'Trabajar en el challenge'),
-    (2, 'Cocinar'),
-    (3, 'Preparar el stream');
+	(1, 'Trabajar en el challenge', true),
+    (2, 'Cocinar', false),
+    (3, 'Preparar el stream', true);
     
 SELECT * FROM tareas;
 
 DELETE  FROM tareas where id >=1;
-DESCRIBE tareas;

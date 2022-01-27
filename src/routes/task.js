@@ -32,14 +32,15 @@ router.get('/:id', (req, res)=>{
 //ruta para insertar elementos
 
 router.post('/', (req, res) => {
-    const {id, descripcion} = req.body;
-    console.log(id, descripcion);
+    const {id, descripcion, finalizado} = req.body;
+    console.log(id, descripcion, finalizado);
     const query = `
       SET @id = ?;
       SET @descripcion = ?;
-      CALL taskAddOrEdit(@id, @descripcion);
+      SET @finalizado = ?;
+      CALL taskAddOrEdit(@id, @descripcion, @finalizado);
     `;
-    mysqlConnection.query(query, [id, descripcion], (err, rows, fields) => {
+    mysqlConnection.query(query, [id, descripcion, finalizado], (err, rows, fields) => {
       if(!err) {
         res.json({status: 'Tarea guardada'});
       } else {
@@ -50,12 +51,13 @@ router.post('/', (req, res) => {
   });
 
 router.put('/:id', (req, res)=>{
-    const {descripcion}= req.body;
+    const {descripcion, finalizado}= req.body;
     const {id}= req.params;
     const query = `
     SET @id = ?;
     SET @descripcion = ?;
-    CALL taskAddOrEdit(@id, @descripcion);
+    SET @finalizado = ?;
+    CALL taskAddOrEdit(@id, @descripcion,@finalizado);
   `;
   mysqlConnection.query(query, [id, descripcion], (err, rows, fields) => {
     if(!err) {
