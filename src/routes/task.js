@@ -33,16 +33,19 @@ router.get('/:id', (req, res)=>{
 
 router.post('/', (req, res) => {
     const {id, descripcion, finalizado} = req.body;
-    console.log(id, descripcion, finalizado);
+    console.log(req.body);
     const query = `
-      SET @id = ?;
-      SET @descripcion = ?;
-      SET @finalizado = ?;
-      CALL taskAddOrEdit(@id, @descripcion, @finalizado);
+      INSERT INTO tareas(descripcion, finalizado) VALUES(?, ?);
     `;
-    mysqlConnection.query(query, [id, descripcion, finalizado], (err, rows, fields) => {
+    mysqlConnection.query(query, [descripcion, finalizado], (err, rows, fields) => {
       if(!err) {
-        res.json({status: 'Tarea guardada'});
+        res.json({
+          status: 'Tarea guardada', 
+          task: {
+            id: rows.insertId, 
+            descripcion: req.body.descripcion,
+            finalizado: req.body.finalizado
+          }});
       } else {
         console.log(err);
       }
@@ -54,12 +57,14 @@ router.put('/:id', (req, res)=>{
     const {descripcion, finalizado}= req.body;
     const {id}= req.params;
     const query = `
-    SET @id = ?;
-    SET @descripcion = ?;
-    SET @finalizado = ?;
-    CALL taskAddOrEdit(@id, @descripcion,@finalizado);
+    UPDATE tareas
+    SET 
+      descripcion = ?,
+      finalizado = ?
+    WHERE id = ?
+    ;
   `;
-  mysqlConnection.query(query, [id, descripcion], (err, rows, fields) => {
+  mysqlConnection.query(query, [descripcion, finalizado, id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'Tarea modificada'});
     } else {

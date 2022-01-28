@@ -1,12 +1,14 @@
-const express= require('express');
-const app= express();
+const express = require('express');
+const app = express();
+const cors = require('cors');
 
 //configuraciones
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 
 //Middlewares
 
+app.use(cors());
 app.use(express.json());
 
 //Rutas
